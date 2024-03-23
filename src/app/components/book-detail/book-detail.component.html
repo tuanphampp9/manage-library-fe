@@ -1,0 +1,22 @@
+<p>Mã sách: {{ bookObj.isbn }}</p>
+<p>Tên sách: {{ bookObj.book_title }}</p>
+<p>Ngày xuất bản: {{ bookObj.date_of_publication }}</p>
+<p>Mô tả: {{ bookObj.description }}</p>
+<p>Thể loại: {{ bookObj.category.name_category }}</p>
+<p>
+  Các tác giả:
+  <span *ngFor="let author of bookObj.authors_list; let isLast = last"
+    >{{ author.name }}<span *ngIf="!isLast">,&#160;</span></span
+  >
+</p>
+<p><b>Ảnh minh hoạ sách:</b></p>
+<div class="box_image">
+  <img
+    *ngFor="let image of bookObj.images_list"
+    nz-image
+    width="200px"
+    height="200px"
+    [nzSrc]="image.image_url"
+    alt=""
+  />
+</div>

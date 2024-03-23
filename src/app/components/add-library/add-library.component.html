@@ -1,0 +1,162 @@
+<p>Thư viện</p>
+<form
+  nz-form
+  [formGroup]="libraryForm"
+  class="login-form"
+  (ngSubmit)="submitForm()"
+>
+  <div class="box-library">
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="name_lib">Tên thư viện</nz-form-label>
+      <nz-form-control [nzErrorTip]="getErrorMsg('name_lib')">
+        <input
+          type="text"
+          nz-input
+          id="name_lib"
+          formControlName="name_lib"
+          placeholder="Tên thư viện"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="address">Địa chỉ</nz-form-label>
+      <nz-form-control [nzErrorTip]="getErrorMsg('address')">
+        <input
+          type="text"
+          nz-input
+          id="address"
+          formControlName="address"
+          placeholder="Địa chỉ của thư viện"
+        />
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <button nz-button nzType="primary" (click)="handleAddBook()">
+    Thêm sách
+  </button>
+  <div
+    formArrayName="list_book"
+    [style]="{ maxHeight: '410px', overflowY: 'auto' }"
+  >
+    <div *ngFor="let formBook of getFormArr; let i = index" [formGroupName]="i">
+      <div class="box_header_book">
+        <p [style]="{ marginTop: '10px' }">Quyển sách {{ i + 1 }}</p>
+        <span
+          *ngIf="i !== 0"
+          nz-icon
+          nzType="delete"
+          nzTheme="outline"
+          (click)="handleRemoveBook(i)"
+          class="icon_delete"
+        ></span>
+      </div>
+      <div class="book_info_1">
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="isbn">Mã sách</nz-form-label>
+          <nz-form-control [nzErrorTip]="getErrorMsg('isbn')">
+            <input
+              type="text"
+              nz-input
+              id="isbn"
+              formControlName="isbn"
+              placeholder="Nhập mã sách"
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="book_title">Tên sách</nz-form-label>
+          <nz-form-control [nzErrorTip]="getErrorMsg('book_title')">
+            <input
+              type="text"
+              nz-input
+              id="book_title"
+              formControlName="book_title"
+              placeholder="Nhập tên sách"
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="date_of_publication"
+            >Ngày xuất bản</nz-form-label
+          >
+          <nz-form-control [nzErrorTip]="getErrorMsg('date_of_publication')">
+            <nz-date-picker
+              formControlName="date_of_publication"
+            ></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="description">Mô tả</nz-form-label>
+          <nz-form-control [nzErrorTip]="getErrorMsg('description')">
+            <input
+              type="text"
+              nz-input
+              id="description"
+              formControlName="description"
+              placeholder="Nhập mô tả sách"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="book_info_1">
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="id_category"
+            >Chọn thể loại</nz-form-label
+          >
+          <nz-form-control [nzErrorTip]="getErrorMsg('id_category')">
+            <nz-select formControlName="id_category">
+              <nz-option
+                *ngFor="let category of listCategory"
+                [nzValue]="category.id"
+                [nzLabel]="category.name_category"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="list_authors_id"
+            >Chọn tác giả</nz-form-label
+          >
+          <nz-form-control [nzErrorTip]="getErrorMsg('list_authors_id')">
+            <nz-select
+              (ngModelChange)="onTagChange($event)"
+              nzMode="tags"
+              formControlName="list_authors_id"
+              [nzTokenSeparators]="[',']"
+              nzPlaceHolder="Tác giả của cuốn sách"
+            >
+              <nz-option
+                *ngFor="let option of listAuthor"
+                [nzLabel]="option.name"
+                [nzValue]="option.id"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="list_url_images"
+            >Tải ảnh của sách</nz-form-label
+          >
+          <nz-form-control [nzErrorTip]="getErrorMsg('list_url_images')">
+            <input
+              type="file"
+              nz-input
+              id="list_url_images"
+              (input)="handleUpload($event, i)"
+              multiple="multiple"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <hr />
+    </div>
+  </div>
+  <button
+    nz-button
+    nzType="primary"
+    type="submit"
+    [disabled]="libraryForm.invalid || isLoadingImage"
+  >
+    Thêm thư viện
+  </button>
+</form>

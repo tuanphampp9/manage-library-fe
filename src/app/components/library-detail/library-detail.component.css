@@ -1,0 +1,13 @@
+nz-table {
+  max-height: 500px;
+  overflow-y: auto;
+}
+.ant-input {
+  width: 200px;
+}
+.box_search_book {
+  display: flex;
+}
+.ant-input {
+  margin-right: 10px;
+}

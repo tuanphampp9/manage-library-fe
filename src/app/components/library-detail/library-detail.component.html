@@ -1,0 +1,69 @@
+<div class="header-detail-lib">
+  <p>Thư viện: {{ libraryObj.name_lib }}</p>
+  <p>Địa chỉ: {{ libraryObj.address }}</p>
+</div>
+<div class="box_search_book">
+  <input
+    nz-input
+    placeholder="Nhập mã sách để tìm kiếm"
+    nzSize="small"
+    [(ngModel)]="codeBook"
+  />
+  <input
+    nz-input
+    placeholder="Nhập tên sách để tìm kiếm"
+    nzSize="small"
+    [(ngModel)]="nameBook"
+  />
+  <div class="category-input">
+    <input
+      placeholder="Nhập tên thể loại"
+      nz-input
+      [(ngModel)]="categoryBook"
+      (input)="onInput($event)"
+      [nzAutocomplete]="auto"
+    />
+    <nz-autocomplete
+      [nzDataSource]="listCategory"
+      nzBackfill
+      (selectionChange)="onSelect($event)"
+      #auto
+    ></nz-autocomplete>
+  </div>
+  <nz-range-picker [(ngModel)]="dateOfPublication"></nz-range-picker>
+  <button nz-button nzType="default" nzShape="circle">
+    <span nz-icon nzType="search" (click)="handleSearch()"></span>
+  </button>
+</div>
+<nz-table
+  #rowBookTable
+  [nzData]="listBook"
+  nzShowPagination
+  nzShowSizeChanger
+  [nzPageSize]="pageSize"
+  [nzFrontPagination]="false"
+  [nzTotal]="total"
+  (nzQueryParams)="getPage($event)"
+  nzSize="middle"
+  ngSkipHydration
+  [nzPageSizeOptions]="[8, 16, 24, 32]"
+>
+  <thead>
+    <tr>
+      <th>Mã sách</th>
+      <th>Tên sách</th>
+      <th>Thể loại</th>
+      <th>Ngày xuất bản</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of rowBookTable.data">
+      <td>{{ data.isbn }}</td>
+      <td>
+        <a routerLink="/books/book/{{ data.id }}">{{ data.book_title }}</a>
+      </td>
+      <td>{{ data.category.name_category }}</td>
+      <td>{{ data.date_of_publication }}</td>
+    </tr>
+  </tbody>
+</nz-table>

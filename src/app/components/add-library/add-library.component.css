@@ -1,0 +1,24 @@
+.box-library {
+  display: flex;
+}
+.book_info_1 {
+  display: flex;
+  justify-content: space-between;
+}
+.book_info_2 {
+  display: flex;
+}
+.box_header_book {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.icon_delete {
+  font-size: 18px;
+  color: #ff0000;
+  cursor: pointer;
+  padding: 8px;
+}
+.ant-select {
+  width: 182px;
+}

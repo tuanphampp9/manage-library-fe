@@ -1,0 +1,8 @@
+.box-search {
+  width: 500px;
+  display: flex;
+}
+nz-table {
+  max-height: 500px;
+  overflow-y: auto;
+}

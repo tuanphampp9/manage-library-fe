@@ -1,0 +1,44 @@
+<div class="box-search">
+  <nz-form-label [nzSpan]="6" nzFor="search_input"
+    >Tra cứu thư viện</nz-form-label
+  >
+  <input
+    nz-input
+    placeholder="Nhập tên thư viện để tra cứu"
+    nzSize="large"
+    name="search_input"
+    (input)="onChangeText($event)"
+  />
+</div>
+<nz-table
+  #rowLibraryTable
+  [nzData]="listLibrary"
+  nzShowPagination
+  nzShowSizeChanger
+  [nzTotal]="24"
+  [nzPageSize]="pageSize"
+  [nzFrontPagination]="false"
+  (nzQueryParams)="getPage($event)"
+  nzSize="middle"
+  ngSkipHydration
+  [nzPageSizeOptions]="[8, 16, 24, 32]"
+>
+  <thead>
+    <tr>
+      <th>Mã thư viện</th>
+      <th>Tên thư viện</th>
+      <th>Số sách</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of rowLibraryTable.data">
+      <td>{{ data.id }}</td>
+      <td>
+        <a routerLink="/library/list-library/{{ data.id }}">{{
+          data.name_lib
+        }}</a>
+      </td>
+      <td>{{ data.number_of_books }}</td>
+    </tr>
+  </tbody>
+</nz-table>

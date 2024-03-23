@@ -1,0 +1,42 @@
+<div class="box-search">
+  <nz-form-label [nzSpan]="6" nzFor="search_input"
+    >Tra cứu thể loại</nz-form-label
+  >
+  <input
+    nz-input
+    placeholder="Nhập tên thể loại để tra cứu"
+    nzSize="large"
+    name="search_input"
+    (input)="onChangeText($event)"
+  />
+</div>
+<nz-table
+  #rowCategoryTable
+  [nzData]="listCategories"
+  nzShowPagination
+  nzShowSizeChanger
+  [nzPageSize]="pageSize"
+  [nzFrontPagination]="false"
+  [nzTotal]="total"
+  (nzQueryParams)="getPage($event)"
+  nzSize="middle"
+  ngSkipHydration
+  [nzPageSizeOptions]="[8, 16, 24, 32]"
+>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tên thể loại</th>
+      <th>Số sách</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of rowCategoryTable.data">
+      <td>{{ data.id }}</td>
+      <td>
+        <b>{{ data.name_category }}</b>
+      </td>
+      <td>{{ data.number_of_books }}</td>
+    </tr>
+  </tbody>
+</nz-table>
