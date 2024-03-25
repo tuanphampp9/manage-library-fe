@@ -1,1 +1,30 @@
-<p>add-author works!</p>
+<form
+  nz-form
+  [formGroup]="formAuthor"
+  class="login-form"
+  (ngSubmit)="submitForm()"
+>
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="getErrorMsg('name')" class="form_input">
+      <nz-form-label [nzSpan]="3" nzFor="email">Tên tác giả</nz-form-label>
+      <input
+        type="text"
+        nz-input
+        formControlName="name"
+        placeholder="Nhập tên tác giả"
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control
+      [nzErrorTip]="getErrorMsg('date_of_birth')"
+      class="form_input"
+    >
+      <nz-form-label [nzSpan]="3" nzFor="email">Ngày sinh</nz-form-label>
+      <nz-date-picker formControlName="date_of_birth"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <button nz-button nzType="primary" [disabled]="formAuthor.invalid">
+    Thêm tác giả
+  </button>
+</form>

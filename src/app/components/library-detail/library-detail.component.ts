@@ -50,7 +50,7 @@ export class LibraryDetailComponent {
     this.bookService
       .getBookFollowLibId(this.libraryObj.id, this.pageSize, this.pageId)
       .subscribe((data) => {
-        this.total = data.total_page;
+        this.total = data.total_items;
         this.listBook = data.list_book;
       });
   }
@@ -75,7 +75,7 @@ export class LibraryDetailComponent {
     this.bookService
       .getBookFollowLibId(this.libraryObj.id, pageSize, pageIndex, bookParam)
       .subscribe((data) => {
-        this.total = data.total_page;
+        this.total = data.total_items;
         this.listBook = data.list_book;
       });
   }
@@ -119,7 +119,9 @@ export class LibraryDetailComponent {
       )
       .subscribe((data) => {
         this.listBook = data.list_book;
-        this.total = data.total_page;
+        this.total = data.total_items;
       });
   }
+
+  public deleteBook(): void {}
 }

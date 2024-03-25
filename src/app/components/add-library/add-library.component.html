@@ -8,7 +8,7 @@
   <div class="box-library">
     <nz-form-item>
       <nz-form-label nzRequired nzFor="name_lib">Tên thư viện</nz-form-label>
-      <nz-form-control [nzErrorTip]="getErrorMsg('name_lib')">
+      <nz-form-control [nzErrorTip]="getErrorMsgFormGroup('name_lib')">
         <input
           type="text"
           nz-input
@@ -20,7 +20,7 @@
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzRequired nzFor="address">Địa chỉ</nz-form-label>
-      <nz-form-control [nzErrorTip]="getErrorMsg('address')">
+      <nz-form-control [nzErrorTip]="getErrorMsgFormGroup('address')">
         <input
           type="text"
           nz-input
@@ -53,7 +53,7 @@
       <div class="book_info_1">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="isbn">Mã sách</nz-form-label>
-          <nz-form-control [nzErrorTip]="getErrorMsg('isbn')">
+          <nz-form-control [nzErrorTip]="getErrorMsgFormArray('isbn', i)">
             <input
               type="text"
               nz-input
@@ -65,7 +65,7 @@
         </nz-form-item>
         <nz-form-item>
           <nz-form-label nzRequired nzFor="book_title">Tên sách</nz-form-label>
-          <nz-form-control [nzErrorTip]="getErrorMsg('book_title')">
+          <nz-form-control [nzErrorTip]="getErrorMsgFormArray('book_title', i)">
             <input
               type="text"
               nz-input
@@ -79,7 +79,9 @@
           <nz-form-label nzRequired nzFor="date_of_publication"
             >Ngày xuất bản</nz-form-label
           >
-          <nz-form-control [nzErrorTip]="getErrorMsg('date_of_publication')">
+          <nz-form-control
+            [nzErrorTip]="getErrorMsgFormArray('date_of_publication', i)"
+          >
             <nz-date-picker
               formControlName="date_of_publication"
             ></nz-date-picker>
@@ -87,7 +89,9 @@
         </nz-form-item>
         <nz-form-item>
           <nz-form-label nzRequired nzFor="description">Mô tả</nz-form-label>
-          <nz-form-control [nzErrorTip]="getErrorMsg('description')">
+          <nz-form-control
+            [nzErrorTip]="getErrorMsgFormArray('description', i)"
+          >
             <input
               type="text"
               nz-input
@@ -103,7 +107,9 @@
           <nz-form-label nzRequired nzFor="id_category"
             >Chọn thể loại</nz-form-label
           >
-          <nz-form-control [nzErrorTip]="getErrorMsg('id_category')">
+          <nz-form-control
+            [nzErrorTip]="getErrorMsgFormArray('id_category', i)"
+          >
             <nz-select formControlName="id_category">
               <nz-option
                 *ngFor="let category of listCategory"
@@ -117,7 +123,9 @@
           <nz-form-label nzRequired nzFor="list_authors_id"
             >Chọn tác giả</nz-form-label
           >
-          <nz-form-control [nzErrorTip]="getErrorMsg('list_authors_id')">
+          <nz-form-control
+            [nzErrorTip]="getErrorMsgFormArray('list_authors_id', i)"
+          >
             <nz-select
               (ngModelChange)="onTagChange($event)"
               nzMode="tags"
@@ -137,7 +145,9 @@
           <nz-form-label nzRequired nzFor="list_url_images"
             >Tải ảnh của sách</nz-form-label
           >
-          <nz-form-control [nzErrorTip]="getErrorMsg('list_url_images')">
+          <nz-form-control
+            [nzErrorTip]="getErrorMsgFormArray('list_url_images', i)"
+          >
             <input
               type="file"
               nz-input

@@ -11,3 +11,9 @@ nz-table {
 .ant-input {
   margin-right: 10px;
 }
+
+.icon_action {
+  font-size: 17px;
+  margin-right: 10px;
+  cursor: pointer;
+}

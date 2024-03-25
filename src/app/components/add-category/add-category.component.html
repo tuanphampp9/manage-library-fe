@@ -1,1 +1,18 @@
-<p>add-category works!</p>
+<div class="box_add_category">
+  <nz-form-label [nzSpan]="2" nzFor="category">Thêm thể loại</nz-form-label>
+  <input
+    nz-input
+    placeholder="Nhập tên thể loại"
+    type="text"
+    name="category"
+    [(ngModel)]="nameCategory"
+  />
+  <button
+    nz-button
+    nzType="primary"
+    [disabled]="!nameCategory.length"
+    (click)="addCategory()"
+  >
+    Thêm mới
+  </button>
+</div>

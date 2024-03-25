@@ -13,6 +13,8 @@ import { LibraryService } from '../../services/library.service';
 import { Router } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
 import { CategoryRes } from '../../interfaces/category-res';
+import { ToastrService } from 'ngx-toastr';
+import { error } from 'console';
 
 @Component({
   selector: 'app-add-library',
@@ -43,7 +45,8 @@ export class AddLibraryComponent {
     private authorService: AuthorService,
     private libraryService: LibraryService,
     private categoryService: CategoryService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.authorService.getListAuthor(5, 1).subscribe((data) => {
       this.listAuthor = data.authors_list;
@@ -67,13 +70,28 @@ export class AddLibraryComponent {
   public onTagChange(selectedTags: string[] | Event): void {
     console.log(selectedTags);
   }
-  public getErrorMsg(controlName: string): string {
-    const control = this.libraryForm.get(controlName);
+  public getErrorMsgFormArray(controlName: string, formIndex: number): string {
+    const control = (this.libraryForm.get('list_book') as FormArray)
+      .at(formIndex)
+      .get(controlName);
     if (control?.hasError('required')) {
       return 'Không được để trống';
+    } else if (control?.hasError('dateNotValid')) {
+      return 'Ngày không hợp lệ';
     }
     return '';
   }
+
+  public getErrorMsgFormGroup(controlName: string): string {
+    const control = this.libraryForm.get(controlName);
+    if (control?.hasError('required')) {
+      return 'Không được để trống';
+    } else if (control?.hasError('dateNotValid')) {
+      return 'Ngày không hợp lệ';
+    }
+    return '';
+  }
+
   public handleAddBook() {
     (this.libraryForm.get('list_book') as FormArray).push(
       this.formBuilder.group({
@@ -92,21 +110,30 @@ export class AddLibraryComponent {
   }
   public handleUpload(event: Event, formIndex: number) {
     this.isLoadingImage = true;
+
     let formData: FormData = new FormData();
     const lengthFiles: any = (
       (event.target as HTMLInputElement).files as FileList
     ).length;
+
     for (let i: number = 0; i < lengthFiles; i++) {
       const valueFile = ((event.target as HTMLInputElement).files as FileList)[
         i
       ];
       formData.append('files', valueFile);
     }
-    this.libraryService.uploadImage(formData).subscribe((data) => {
-      (
-        this.getFormArr[formIndex].get('list_url_images') as FormControl
-      ).setValue(data);
-      this.isLoadingImage = false;
-    });
+    this.libraryService.uploadImage(formData).subscribe(
+      (data) => {
+        (
+          this.getFormArr[formIndex].get('list_url_images') as FormControl
+        ).setValue(data);
+        this.isLoadingImage = false;
+      },
+      (error: any) => {
+        this.toastr.warning(error.error.message);
+        (document.getElementById('list_url_images') as HTMLInputElement).value =
+          '';
+      }
+    );
   }
 }

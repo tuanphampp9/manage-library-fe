@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { CategoryDto } from '../interfaces/category-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +20,8 @@ export class CategoryService {
       .append('page', pageId)
       .append('keyword', keyword);
     return this.http.get(`${this.API_URL}/categories`, { params: params });
+  }
+  public createCategory(data: CategoryDto): Observable<any> {
+    return this.http.post(`${this.API_URL}/categories`, data);
   }
 }

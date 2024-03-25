@@ -39,7 +39,7 @@ export class ListCategoryComponent implements OnInit, OnDestroy {
       )
       .subscribe((data: any) => {
         this.listCategories = data.categories_list;
-        this.total = data.total_page;
+        this.total = data.total_items;
       });
   }
   ngOnDestroy(): void {
@@ -52,7 +52,7 @@ export class ListCategoryComponent implements OnInit, OnDestroy {
       .getListCategory(this.pageSize, this.pageId)
       .subscribe((data: any) => {
         this.listCategories = data.categories_list;
-        this.total = data.total_page;
+        this.total = data.total_items;
       });
   }
   public onChangeText(event: Event): void {
@@ -66,7 +66,7 @@ export class ListCategoryComponent implements OnInit, OnDestroy {
     this.categoryService
       .getListCategory(pageSize, pageIndex, this.keywordCategory)
       .subscribe((data) => {
-        this.total = data.total_page;
+        this.total = data.total_items;
         this.listCategories = data.categories_list;
       });
   }

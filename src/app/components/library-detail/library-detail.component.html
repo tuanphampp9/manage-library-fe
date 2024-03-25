@@ -54,6 +54,7 @@
       <th>Tên sách</th>
       <th>Thể loại</th>
       <th>Ngày xuất bản</th>
+      <th>Hành động</th>
     </tr>
   </thead>
   <tbody>
@@ -64,6 +65,22 @@
       </td>
       <td>{{ data.category.name_category }}</td>
       <td>{{ data.date_of_publication }}</td>
+      <td>
+        <span
+          nz-icon
+          nzType="edit"
+          nzTheme="outline"
+          class="icon_action"
+          style="color: rgb(177, 177, 63)"
+        ></span>
+        <span
+          nz-icon
+          nzType="delete"
+          nzTheme="outline"
+          class="icon_action"
+          style="color: red"
+        ></span>
+      </td>
     </tr>
   </tbody>
 </nz-table>

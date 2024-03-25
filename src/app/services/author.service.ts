@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { AuthorDto } from '../interfaces/author-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +20,8 @@ export class AuthorService {
       .append('page', pageId)
       .append('keyword', keyword);
     return this.http.get(`${this.API_URL}/authors`, { params: params });
+  }
+  public createAuthor(data: AuthorDto): Observable<any> {
+    return this.http.post(`${this.API_URL}/authors`, data);
   }
 }

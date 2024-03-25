@@ -46,6 +46,10 @@ export class BookService {
     });
   }
 
+  public deleteBookService(bookId: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}/books/${bookId}`);
+  }
+
   public getBook(bookId: number): Observable<any> {
     return this.http.get(`${this.API_URL}/books/${bookId}`);
   }

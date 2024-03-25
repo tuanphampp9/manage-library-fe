@@ -39,7 +39,7 @@ export class ListAuthorComponent {
       )
       .subscribe((data: any) => {
         this.listAuthor = data.authors_list;
-        this.total = data.total_pages;
+        this.total = data.total_items;
       });
   }
   ngOnDestroy(): void {
@@ -52,7 +52,7 @@ export class ListAuthorComponent {
       .getListAuthor(this.pageSize, this.pageId)
       .subscribe((data: any) => {
         this.listAuthor = data.authors_list;
-        this.total = data.total_pages;
+        this.total = data.total_items;
       });
   }
   public onChangeText(event: Event): void {
@@ -66,7 +66,7 @@ export class ListAuthorComponent {
     this.authorService
       .getListAuthor(pageSize, pageIndex, this.keywordAuthor)
       .subscribe((data) => {
-        this.total = data.total_pages;
+        this.total = data.total_items;
         this.listAuthor = data.authors_list;
       });
   }
