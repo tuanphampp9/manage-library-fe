@@ -1,0 +1,8 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Xác nhận xoá"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <p *nzModalContent>Bạn có chắc muốn xoá sách: {{ nameBook }}</p>
+</nz-modal>

@@ -79,8 +79,14 @@
           nzTheme="outline"
           class="icon_action"
           style="color: red"
+          (click)="openDialogDelete(data)"
         ></span>
       </td>
     </tr>
   </tbody>
 </nz-table>
+<app-modal-delete
+  [(isVisible)]="visibleModalDelete"
+  [nameBook]="infoBook.book_title"
+  (isConfirm)="handleDelete($event)"
+></app-modal-delete>

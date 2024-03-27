@@ -40,7 +40,7 @@ export class ListLibraryComponent implements OnDestroy, OnInit {
       )
       .subscribe((data: any) => {
         this.listLibrary = data.libraries_list;
-        this.total = data.total_pages;
+        this.total = data.total_items;
       });
   }
   ngOnInit(): void {
@@ -49,7 +49,7 @@ export class ListLibraryComponent implements OnDestroy, OnInit {
       .subscribe((data: any) => {
         console.log(data);
         this.listLibrary = data.libraries_list;
-        this.total = data.total_pages;
+        this.total = data.total_items;
       });
   }
   ngOnDestroy(): void {
@@ -63,7 +63,7 @@ export class ListLibraryComponent implements OnDestroy, OnInit {
     this.libraryService
       .getListLibrary(pageSize, pageIndex, this.keywordLibrary)
       .subscribe((data) => {
-        this.total = data.total_pages;
+        this.total = data.total_items;
         this.listLibrary = data.libraries_list;
       });
   }

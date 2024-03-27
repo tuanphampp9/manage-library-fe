@@ -46,8 +46,18 @@ export class BookService {
     });
   }
 
-  public deleteBookService(bookId: number): Observable<any> {
-    return this.http.delete(`${this.API_URL}/books/${bookId}`);
+  public async deleteBookService(bookId: number) {
+    await this.http
+      .delete(`${this.API_URL}/books/${bookId}`)
+      .toPromise()
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      });
+    // return await this.http.delete(`${this.API_URL}/books/${bookId}`);
   }
 
   public getBook(bookId: number): Observable<any> {

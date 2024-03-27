@@ -12,6 +12,7 @@ import {
   NzAutocompleteComponent,
   NzAutocompleteOptionComponent,
 } from 'ng-zorro-antd/auto-complete';
+import { error } from 'console';
 
 @Component({
   selector: 'app-library-detail',
@@ -34,8 +35,20 @@ export class LibraryDetailComponent {
   public total: number = 1;
   public keywordCategory: string = '';
   public dateOfPublication: string[] = new Array<string>();
+  public infoBook: BookRes = {
+    id: 1,
+    isbn: '',
+    book_title: '',
+    date_of_publication: '',
+    category: {
+      id: 1,
+      name_category: '',
+      number_of_books: 1,
+    },
+  };
   public listCategory: string[] = new Array<string>();
   public listBook: BookRes[] = new Array<BookRes>();
+  public visibleModalDelete: boolean = false;
   constructor(
     private paramsUrl: ActivatedRoute,
     private libraryService: LibraryService,
@@ -55,9 +68,8 @@ export class LibraryDetailComponent {
       });
   }
 
-  public getPage(params: NzTableQueryParams): void {
-    const { pageSize, pageIndex } = params;
-    const bookParam: bookParams = {
+  public getBookParam(): bookParams {
+    const book: bookParams = {
       isbn: this.codeBook,
       book_title: this.nameBook,
       category: this.keywordCategory,
@@ -67,9 +79,15 @@ export class LibraryDetailComponent {
     if (this.dateOfPublication.length) {
       const dateFrom: string = convertDate(this.dateOfPublication[0]);
       const dateTo: string = convertDate(this.dateOfPublication[1]);
-      bookParam.date_of_publication_from = dateFrom;
-      bookParam.date_of_publication_to = dateTo;
+      book.date_of_publication_from = dateFrom;
+      book.date_of_publication_to = dateTo;
     }
+    return book;
+  }
+
+  public getPage(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    const bookParam: bookParams = this.getBookParam();
     this.pageId = pageIndex;
     this.pageSize = pageSize;
     this.bookService
@@ -123,5 +141,16 @@ export class LibraryDetailComponent {
       });
   }
 
-  public deleteBook(): void {}
+  public async handleDelete(isConfirm: boolean) {
+    // const bookParam: bookParams = this.getBookParam();
+    if (isConfirm) {
+      const res = await this.bookService.deleteBookService(this.infoBook.id);
+      console.log(res);
+    }
+  }
+
+  public openDialogDelete(data: BookRes) {
+    this.visibleModalDelete = true;
+    this.infoBook = data;
+  }
 }

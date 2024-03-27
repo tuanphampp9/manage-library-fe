@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { SharedModule } from '../../shared/shared/shared.module';
 @NgModule({
   declarations: [
     ListLibraryComponent,
@@ -36,7 +37,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     ReactiveFormsModule,
     NzSelectModule,
     NzDividerModule,
-    NzUploadModule
+    NzUploadModule,
+    SharedModule,
   ],
 })
 export class ModuleLibraryModule {}
